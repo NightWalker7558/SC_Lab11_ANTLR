@@ -1,0 +1,42 @@
+2023-12-08 11:23:52:177 grammar LogManager.java:25 before: (COMBINED_GRAMMAR LabeledExpr (RULES (RULE prog (BLOCK (ALT (+ (BLOCK (ALT stat)))))) (RULE stat (BLOCK (ALT expr NEWLINE) (ALT ID '=' expr NEWLINE) (ALT NEWLINE))) (RULE expr (BLOCK (ALT expr (= op (BLOCK (ALT '*') (ALT '/'))) expr) (ALT expr (= op (BLOCK (ALT '+') (ALT '-'))) expr) (ALT INT) (ALT ID) (ALT '(' expr ')'))) (RULE MUL (BLOCK (ALT '*'))) (RULE DIV (BLOCK (ALT '/'))) (RULE ADD (BLOCK (ALT '+'))) (RULE SUB (BLOCK (ALT '-'))) (RULE ID (BLOCK (ALT (+ (BLOCK (ALT [a-zA-Z])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE NEWLINE (BLOCK (ALT (? (BLOCK (ALT '\r'))) '\n'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t])))) skip)))))
+2023-12-08 11:23:52:187 grammar LogManager.java:25 after: (COMBINED_GRAMMAR LabeledExpr (RULES (RULE prog (BLOCK (ALT (+ (BLOCK (ALT stat)))))) (RULE stat (BLOCK (ALT expr NEWLINE) (ALT ID '=' expr NEWLINE) (ALT NEWLINE))) (RULE expr (BLOCK (ALT expr (= op (SET '*' '/')) expr) (ALT expr (= op (SET '+' '-')) expr) (ALT INT) (ALT ID) (ALT '(' expr ')'))) (RULE MUL (BLOCK (ALT '*'))) (RULE DIV (BLOCK (ALT '/'))) (RULE ADD (BLOCK (ALT '+'))) (RULE SUB (BLOCK (ALT '-'))) (RULE ID (BLOCK (ALT (+ (BLOCK (ALT [a-zA-Z])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE NEWLINE (BLOCK (ALT (? (BLOCK (ALT '\r'))) '\n'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t])))) skip)))))
+2023-12-08 11:23:52:205 grammar LogManager.java:25 after extract implicit lexer =(COMBINED_GRAMMAR LabeledExpr (RULES (RULE prog (BLOCK (ALT (+ (BLOCK (ALT stat)))))) (RULE stat (BLOCK (ALT expr NEWLINE) (ALT ID '=' expr NEWLINE) (ALT NEWLINE))) (RULE expr (BLOCK (ALT expr (= op (SET '*' '/')) expr) (ALT expr (= op (SET '+' '-')) expr) (ALT INT) (ALT ID) (ALT '(' expr ')')))))
+2023-12-08 11:23:52:206 grammar LogManager.java:25 lexer =(LEXER_GRAMMAR LabeledExprLexer (RULES (RULE T__0 (BLOCK (ALT '='))) (RULE T__1 (BLOCK (ALT '('))) (RULE T__2 (BLOCK (ALT ')'))) (RULE MUL (BLOCK (ALT '*'))) (RULE DIV (BLOCK (ALT '/'))) (RULE ADD (BLOCK (ALT '+'))) (RULE SUB (BLOCK (ALT '-'))) (RULE ID (BLOCK (ALT (+ (BLOCK (ALT [a-zA-Z])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE NEWLINE (BLOCK (ALT (? (BLOCK (ALT '\r'))) '\n'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t])))) skip)))))
+2023-12-08 11:23:52:368 left-recursion LogManager.java:25 expr
+    :   ( {} INT<tokenIndex=89>                          
+        | ID<tokenIndex=97>                           
+        | '('<tokenIndex=105> expr<tokenIndex=107> ')'<tokenIndex=109>                 
+        )
+        (
+          {precpred(_ctx, 5)}?<p=5> op=('*'<tokenIndex=58>|'/'<tokenIndex=60>) expr<tokenIndex=63,p=6>
+                  | {precpred(_ctx, 4)}?<p=4> op=('+'<tokenIndex=76>|'-'<tokenIndex=78>) expr<tokenIndex=81,p=5>
+        )*
+    ;
+2023-12-08 11:23:52:376 grammar LogManager.java:25 added: (RULE expr (BLOCK (ALT (BLOCK (ALT {} (INT (ELEMENT_OPTIONS (= tokenIndex 89)))) (ALT (ID (ELEMENT_OPTIONS (= tokenIndex 97)))) (ALT ('(' (ELEMENT_OPTIONS (= tokenIndex 105))) (expr (ELEMENT_OPTIONS (= tokenIndex 107))) (')' (ELEMENT_OPTIONS (= tokenIndex 109))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? (ELEMENT_OPTIONS (= p 5))) (= op (SET ('*' (ELEMENT_OPTIONS (= tokenIndex 58))) ('/' (ELEMENT_OPTIONS (= tokenIndex 60))))) (expr (ELEMENT_OPTIONS (= tokenIndex 63) (= p 6)))) (ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) (= op (SET ('+' (ELEMENT_OPTIONS (= tokenIndex 76))) ('-' (ELEMENT_OPTIONS (= tokenIndex 78))))) (expr (ELEMENT_OPTIONS (= tokenIndex 81) (= p 5)))))))))
+2023-12-08 11:23:52:378 semantics LogManager.java:25 tokens={EOF=-1, T__0=1, T__1=2, T__2=3, MUL=4, DIV=5, ADD=6, SUB=7, ID=8, INT=9, NEWLINE=10, WS=11}
+2023-12-08 11:23:52:378 semantics LogManager.java:25 strings={'='=1, '('=2, ')'=3, '*'=4, '/'=5, '+'=6, '-'=7}
+2023-12-08 11:23:52:383 LL1 LogManager.java:25 
+DECISION 0 in rule prog
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 look=[{2, 8..10}, <EOF>]
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 LL(1)? true
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 
+DECISION 1 in rule stat
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 look=[{2, 8..9}, 8, 10]
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 LL(1)? false
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 
+DECISION 2 in rule expr
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 look=[9, 8, 2]
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 LL(1)? true
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 
+DECISION 3 in rule expr
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 look=[null, null]
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 LL(1)? false
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 
+DECISION 4 in rule expr
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 look=[null, null]
+2023-12-08 11:23:52:384 LL1 LogManager.java:25 LL(1)? false
+2023-12-08 11:23:52:403 action-translator LogManager.java:25 translate 
+2023-12-08 11:23:52:405 action-translator LogManager.java:25 translate precpred(_ctx, 5)
+2023-12-08 11:23:52:405 action-translator LogManager.java:25 translate precpred(_ctx, 4)
+2023-12-08 11:23:52:406 action-translator LogManager.java:25 translate precpred(_ctx, 5)
+2023-12-08 11:23:52:407 action-translator LogManager.java:25 translate precpred(_ctx, 4)
